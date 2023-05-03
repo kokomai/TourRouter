@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+---
+# DB setting
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: 
+    username: 
+    password: 
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql:true
+  database:
+    column:
+      encrypt:
+        key: 
+logging:
+  level:
+    '[org.hibernate.sql]': debug
+    '[org.hibernate.type]': trace
