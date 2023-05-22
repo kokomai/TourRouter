@@ -21,15 +21,11 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="member")
-@Component
 @Getter
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class Member {
 
 		@Id
@@ -52,5 +48,4 @@ public class Member {
 		@Column(name="createdDate", insertable = false, updatable = false)
 		@Temporal(TemporalType.TIMESTAMP)
 		private Date createdDate;
-		
 }
