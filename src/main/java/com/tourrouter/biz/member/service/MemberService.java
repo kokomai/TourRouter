@@ -14,7 +14,10 @@ import com.tourrouter.jpa.entity.member.Member;
 import com.tourrouter.jpa.repository.member.MemberRepository;
 import com.tourrouter.jpa.specification.member.MemberSpecification;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class MemberService {
 	@Autowired
 	MemberRepository memberRepository;
@@ -56,7 +59,9 @@ public class MemberService {
 		return memberRepository.findAll(spec);
 	}
 	
-	public Member inserMember(MemberDTO memberDto) {
+	public Member insertMember(MemberDTO memberDto) {
+		log.info("들어 오긴 왔다..");
+		log.info("이름 : " + memberDto.getName());
 		Member member = Member.builder()
 						.auth(memberDto.getAuth())
 						.memberId(memberDto.getMemberId())

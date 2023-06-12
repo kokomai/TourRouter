@@ -1,0 +1,17 @@
+= Member API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+== 1. Member 관련
+
+=== 1.1 createMember
+
+operation::create-memeber[snippets='curl-request,http-request,request-fields, http-response,response-fields']
+
+
+=== 1.2 getAllMember
+operation::get-all-member[snippets='curl-request,http-request,http-response,response-fields']

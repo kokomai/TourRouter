@@ -18,8 +18,11 @@ import com.tourrouter.biz.member.service.MemberService;
 import com.tourrouter.jpa.entity.member.AuthType;
 import com.tourrouter.jpa.entity.member.Member;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/member")
+@Slf4j
 public class MemberController {
 	
 	@Autowired
@@ -51,7 +54,8 @@ public class MemberController {
 	
 	@PostMapping("/createMember")
 	public Member createMember(@RequestBody MemberDTO params) {
-		return memberService.inserMember(params);
+		log.info("컨트롤러 호출됨");
+		return memberService.insertMember(params);
 	}
 	
 	@PutMapping("/updateMember")
