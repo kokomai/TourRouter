@@ -10,6 +10,21 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	private static final String[] API_AUTH_WHITELIST = {
+			"/member/createMember",
+			"/member/getAllMember"
+	};
+	
+	private static final String[] WEB_AUTH_WHITELIST = {
+			"/docs/**",
+			"/index.html"
+	};
+	
+	@Bean
+	WebSecurityCustomizer webSecurityCustomizer() {
+		return (web)-> web.ignoring()
+				.requestMatchers(WEB_AUTH_WHITELIST);
+	}
 	
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -18,8 +33,7 @@ public class SecurityConfig {
 			.authorizeHttpRequests(
 					(authz) -> 
 						authz
-						.requestMatchers("/member/createMember").permitAll()
-						.requestMatchers("/member/getAllMember").permitAll()
+						.requestMatchers(API_AUTH_WHITELIST).permitAll()
 						.anyRequest().authenticated()
 						
 			);

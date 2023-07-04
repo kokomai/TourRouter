@@ -42,11 +42,11 @@ dependencies {
 
 tasks.named('test') {
 	outputs.dir snippetsDir
-	useJUnitPlatform()
+	useJUnitPlatform() 
 }
 
 tasks.named('asciidoctor') {
-	configurations 'asciidoctorExt'
+	
 	inputs.dir snippetsDir
 	dependsOn test
 }
@@ -55,7 +55,7 @@ tasks.named('asciidoctor') {
 tasks.named('bootJar') {
     dependsOn asciidoctor
     copy {
-        from "asciidoctor.outputDir"
-        into 'src/main/resources/static/docs'    // /static/docs로 복사!
+        from "${asciidoctor.outputDir}"
+        into 'static/docs'    // /static/docs로 복사!
     }
 }
