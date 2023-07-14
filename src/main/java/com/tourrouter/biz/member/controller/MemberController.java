@@ -55,7 +55,7 @@ public class MemberController {
 	@PostMapping("/createMember")
 	public Member createMember(@RequestBody MemberDTO params) {
 		log.info("컨트롤러 호출됨");
-		return memberService.insertMember(params);
+		return memberService.createMember(params);
 	}
 	
 	@PutMapping("/updateMember")
@@ -64,7 +64,7 @@ public class MemberController {
 	}
 	
 	@DeleteMapping("/deleteMember")
-	public int deleteMember(@RequestBody MemberDTO params) {
-		return 0;
+	public int deleteMember(@RequestParam("id") int id) {
+		return memberService.deleteMember(id);
 	}
 }

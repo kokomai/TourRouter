@@ -59,7 +59,7 @@ public class MemberService {
 		return memberRepository.findAll(spec);
 	}
 	
-	public Member insertMember(MemberDTO memberDto) {
+	public Member createMember(MemberDTO memberDto) {
 		log.info("들어 오긴 왔다..");
 		log.info("이름 : " + memberDto.getName());
 		Member member = Member.builder()
@@ -69,6 +69,11 @@ public class MemberService {
 						.name(memberDto.getName()).build();
 		
 		return memberRepository.save(member);
+	}
+	
+	public int deleteMember(int id) {
+		
+		return 0;
 	}
 	
 }
