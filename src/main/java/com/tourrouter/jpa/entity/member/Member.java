@@ -28,13 +28,13 @@ public class Member {
 
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		private int id;
+		private Long id;
+		
+		@Column(name="memberId", unique=true)
+		private String memberId;
 		
 		@Column(name="name")
 		private String name;
-		
-		@Column(name="memberId")
-		private String memberId;
 		
 		@Convert(converter = PasswordConverter.class)
 		private String password;

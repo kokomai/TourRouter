@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,8 +35,8 @@ public class MemberController {
 		return memberService.getAllMember();
 	}
 	
-	@GetMapping("/findMember")
-	public List<Member> findMember(
+	@GetMapping("/findMembers")
+	public List<Member> findMembers(
 				@RequestParam(required = false) String memberId, 
 				@RequestParam(required = false) String password,
 				@RequestParam(required = false) List<AuthType> auth,
@@ -42,7 +44,7 @@ public class MemberController {
 				@RequestParam(required = false) Date startDate,
 				@RequestParam(required = false) Date endDate
 			) {
-		return memberService.findMember(
+		return memberService.findMembers(
 				memberId, 
 				password,
 				auth,
@@ -64,7 +66,7 @@ public class MemberController {
 	}
 	
 	@DeleteMapping("/deleteMember")
-	public int deleteMember(@RequestParam("id") int id) {
-		return memberService.deleteMember(id);
+	public ResponseEntity<HttpStatus> deleteMember(@RequestParam("memberId") String memberId) {
+		return memberService.deleteMember(memberId);
 	}
 }

@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import com.tourrouter.jpa.entity.member.Member;
 
-public interface MemberRepository extends JpaRepository<Member, Integer>, JpaSpecificationExecutor<Member>{
+public interface MemberRepository extends JpaRepository<Member, Long>, JpaSpecificationExecutor<Member>{
 }

@@ -5,12 +5,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.tourrouter.biz.member.dto.MemberDTO;
 import com.tourrouter.jpa.entity.member.AuthType;
 import com.tourrouter.jpa.entity.member.Member;
+import com.tourrouter.jpa.exception.MemberNotFoundException;
 import com.tourrouter.jpa.repository.member.MemberRepository;
 import com.tourrouter.jpa.specification.member.MemberSpecification;
 
@@ -26,7 +29,7 @@ public class MemberService {
 		return memberRepository.findAll();
 	}
 	
-	public List<Member> findMember(
+	public List<Member> findMembers(
 			String memberId, 
 			String password,
 			List<AuthType> auth,
@@ -53,7 +56,11 @@ public class MemberService {
 		}
 		
 		if(startDate != null) {
-			spec = spec.and(MemberSpecification.equalAuth(auth));
+			spec = spec.and(MemberSpecification.greaterThanOrEqualToCreatedDate(startDate));
+		}
+		
+		if(endDate != null) {
+			spec = spec.and(MemberSpecification.lessThanOrEqualToCreatedDate(endDate));
 		}
 		
 		return memberRepository.findAll(spec);
@@ -71,9 +78,26 @@ public class MemberService {
 		return memberRepository.save(member);
 	}
 	
-	public int deleteMember(int id) {
-		
-		return 0;
+	public ResponseEntity<HttpStatus> deleteMember(String memberId) {
+		List<Member> members = findMembers(memberId, null, null, null, null, null);
+		if(members.size() != 0) {
+			Long targetId = members.get(0).getId();
+			memberRepository.delete(memberRepository.findById(targetId).orElseThrow(()-> new MemberNotFoundException("멤버가 없다")));
+			members = findMembers(memberId, null, null, null, null, null);
+			
+			if(members.size() == 0) {
+				// 삭제 완료된 경우
+				return new ResponseEntity<>(HttpStatus.OK);
+			} else {
+				// 아직 남아있다..?(그럴 리는 없겠지만)
+				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+			
+		} else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
 	}
+	
+
 	
 }

@@ -11,8 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 	private static final String[] API_AUTH_WHITELIST = {
-			"/member/createMember",
-			"/member/getAllMember"
+			"/member/**",
 	};
 	
 	private static final String[] WEB_AUTH_WHITELIST = {
